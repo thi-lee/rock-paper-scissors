@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissors</title>
+    </head>
+    <body>
+        <script>
+            // Computer will random rock/paper/scissors
+            function computerPlay() {
+                items = ["rock", "paper", "scissors"];
+                let item = items[Math.floor(Math.random() * items.length)];
+                let cselection;
+                switch (item) {
+                    case "rock":
+                        cselection = 1;
+                        break;
+                    case "paper":
+                        cselection = 2;
+                        break;
+                    case "scissors":
+                        cselection = 3;
+                        break;
+                }
+                return cselection;
+            }
+            // Play (function takes 2 parameters)
+
+            function playerPlay() {
+                let pselection = prompt(`Which do you choose? 1. rock, 2. paper, and 3. scissors`, ``);
+                return +pselection;
+            }
+
+            function playRound(playerSelection, computerSelection) {
+                if (playerSelection == 3 && computerSelection == 1 || 
+                    playerSelection == 1 && computerSelection == 2 || 
+                    playerSelection == 2 && computerSelection == 3) {
+                    return `lost`;
+                } else if (playerSelection == 2 && computerSelection == 1 || 
+                            playerSelection == 3 && computerSelection == 2 || 
+                            playerSelection == 1 && computerSelection == 3) {
+                    return `won`;
+                } else {
+                    return `tie`;
+                }
+            }
+
+            function game() {
+                let us = 0;
+                let them = 0;
+                for (let i = 1; i <= 5; i++) {
+                    let playerSelection = playerPlay();
+                    console.log(playerSelection);
+                    let computerSelection = computerPlay();
+                    console.log(computerSelection);
+                    let res = playRound(playerSelection, computerSelection);
+                    if (res == `won`) {
+                        console.log(`You won.`);
+                        us++;
+                    } else if (res == `lost`) {
+                        console.log(`You lost.`);
+                        them++;
+                    } else {
+                        console.log(`tie`);
+                    }
+                }
+                if (us < them) {
+                    console.log(`You lost.`);
+                } else if (us > them) {
+                    console.log(`You won.`);
+                } else {
+                    console.log(`You tie.`);
+                }
+            }
+
+            game();
+        </script>
+    </body>
+</html>
