@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissors</title>
+    </head>
+    <body>
+        <button class='rock'>Rock</button>
+        <button class='paper'>Paper</button>
+        <button class='scissors'>Scissors</button>
+
+        <script>
+            function computerPlay() {
+                // 1 = "rock", 2 = "paper", 3 = "scissors"
+                let cselection = Math.floor(Math.random() * 3) + 1;
+                return cselection;
+            }
+
+            let pselection;
+            
+            let rock = document.querySelector('.rock');
+            rock.addEventListener('click', () => {
+                pselection = 1;
+                console.log(pselection);
+            })
+
+            let paper = document.querySelector('.paper');
+            paper.addEventListener('click', () => {
+                pselection = 2;
+                console.log(pselection);
+            })
+
+            let scissors = document.querySelector('.scissors');
+            scissors.addEventListener('click', () => {
+                pselection = 3;
+                console.log(pselection);
+            })
+
+            /*
+            function computerPlay() {
+                // 1 = "rock", 2 = "paper", 3 = "scissors"
+                let cselection = Math.floor(Math.random() * 3) + 1;
+                return cselection;
+            }
+            // Play (function takes 2 parameters)
+
+            function playerPlay() {
+                let pselection = prompt(`Which do you choose? 1. rock, 2. paper, and 3. scissors`, ``);
+                return +pselection;
+            }
+
+            function playRound(playerSelection, computerSelection) {
+                if (playerSelection == 3 && computerSelection == 1 || 
+                    playerSelection == 1 && computerSelection == 2 || 
+                    playerSelection == 2 && computerSelection == 3) {
+                    return `lost`;
+                } else if (playerSelection == 2 && computerSelection == 1 || 
+                            playerSelection == 3 && computerSelection == 2 || 
+                            playerSelection == 1 && computerSelection == 3) {
+                    return `won`;
+                } else {
+                    return `tie`;
+                }
+            }
+
+            function game() {
+                let ourMark = ``;
+                let theirMark = ``;
+                let us = 0;
+                let them = 0;
+                let playerSelection = playerPlay();
+                let computerSelection = computerPlay();
+                let res = playRound(playerSelection, computerSelection);
+                if (res == `won`) {
+                    ourMark += `|`;
+                    console.log(`Ours: ${ourMark} Theirs: ${theirMark}`);
+                    us++;
+                } else if (res == `lost`) {
+                    theirMark += `|`;
+                    console.log(`Ours : ${ourMark} Theirs: ${theirMark}`);
+                    them++;
+                } else {
+                    console.log(`Ours: ${ourMark} Theirs: ${theirMark}`);
+                }
+
+                if (us < them) {
+                    console.log(`You lost.`);
+                } else if (us > them) {
+                    console.log(`You won.`);
+                } else {
+                    console.log(`You tie.`);
+                }
+            }
+
+            game();
+            */
+        </script>
+    </body>
+</html>
