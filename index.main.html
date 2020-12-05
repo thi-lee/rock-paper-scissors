@@ -9,30 +9,62 @@
         <button class='scissors'>Scissors</button>
 
         <script>
+            // computer random a number, which corresponds to rock/paper/scissors
             function computerPlay() {
                 // 1 = "rock", 2 = "paper", 3 = "scissors"
                 let cselection = Math.floor(Math.random() * 3) + 1;
                 return cselection;
             }
 
-            let pselection;
-            
-            let rock = document.querySelector('.rock');
-            rock.addEventListener('click', () => {
-                pselection = 1;
-                console.log(pselection);
-            })
+            function playerPlay(e) {
+                let pselection;
 
-            let paper = document.querySelector('.paper');
-            paper.addEventListener('click', () => {
-                pselection = 2;
-                console.log(pselection);
-            })
+                let rock = document.querySelector('.rock');
+                rock.addEventListener('click', () => {
+                    pselection = 1;
+                })
 
-            let scissors = document.querySelector('.scissors');
-            scissors.addEventListener('click', () => {
-                pselection = 3;
-                console.log(pselection);
+                let paper = document.querySelector('.paper');
+                paper.addEventListener('click', () => {
+                    pselection = 2;
+                })
+
+                let scissors = document.querySelector('.scissors');
+                scissors.addEventListener('click', () => {
+                    pselection = 3;
+                })
+                return pselection;
+            }
+
+            function playRound(playerSelection, computerSelection) {
+                if (playerSelection == 3 && computerSelection == 1 || 
+                    playerSelection == 1 && computerSelection == 2 || 
+                    playerSelection == 2 && computerSelection == 3) {
+                    return `lost`;
+                } else if (playerSelection == 2 && computerSelection == 1 || 
+                            playerSelection == 3 && computerSelection == 2 || 
+                            playerSelection == 1 && computerSelection == 3) {
+                    return `won`;
+                } else {
+                    return `tie`;
+                }
+            }
+
+            let buttons = document.querySelectorAll('button');
+            buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    let pselection;
+                    if (button.className == 'rock') {
+                        pselection = 1;
+                    } else if (button.className == 'paper') {
+                        pselection = 2;
+                    } else if (button.className == 'scissors') {
+                        pselection = 3;
+                    }
+                    console.log(typeof(pselection), pselection);
+                    console.log(typeof(computerPlay()), computerPlay());
+                    console.log(playRound(pselection, computerPlay()));
+                })
             })
 
             /*
