@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.buttons {
+    background-color: lightgray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
