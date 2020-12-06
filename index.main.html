@@ -4,131 +4,53 @@
         <title>Rock Paper Scissors</title>
     </head>
     <body>
-        <button class='rock'>Rock</button>
-        <button class='paper'>Paper</button>
-        <button class='scissors'>Scissors</button>
+        <div class='container'>
+            <button class='1'>Rock</button>
+            <button class='2'>Paper</button>
+            <button class='3'>Scissors</button>
+        </div>
 
         <script>
+
             // computer random a number, which corresponds to rock/paper/scissors
             function computerPlay() {
                 // 1 = "rock", 2 = "paper", 3 = "scissors"
                 let cselection = Math.floor(Math.random() * 3) + 1;
+                console.log(cselection);
                 return cselection;
             }
 
-            function playerPlay(e) {
-                let pselection;
-
-                let rock = document.querySelector('.rock');
-                rock.addEventListener('click', () => {
-                    pselection = 1;
-                })
-
-                let paper = document.querySelector('.paper');
-                paper.addEventListener('click', () => {
-                    pselection = 2;
-                })
-
-                let scissors = document.querySelector('.scissors');
-                scissors.addEventListener('click', () => {
-                    pselection = 3;
-                })
-                return pselection;
-            }
-
             function playRound(playerSelection, computerSelection) {
-                if (playerSelection == 3 && computerSelection == 1 || 
-                    playerSelection == 1 && computerSelection == 2 || 
-                    playerSelection == 2 && computerSelection == 3) {
-                    return `lost`;
-                } else if (playerSelection == 2 && computerSelection == 1 || 
-                            playerSelection == 3 && computerSelection == 2 || 
-                            playerSelection == 1 && computerSelection == 3) {
-                    return `won`;
-                } else if (playerSelection == 1 && computerSelection == 1 || 
-                            playerSelection == 2 && computerSelection == 2 || 
-                            playerSelection == 3 && computerSelection == 3){
-                    return `tie`;
+                switch(playerSelection){
+                    case 1:
+                        if (computerSelection == 1) {return `You tie.`;}
+                        if (computerSelection == 2) {return `You lost.`;}
+                        if (computerSelection == 3) {return `You won.`;}
+                    case 2: 
+                        if (computerSelection == 2) {return `You tie.`;}
+                        if (computerSelection == 3) {return `You lost.`;}
+                        if (computerSelection == 1) {return `You won.`;}
+                    case 3: 
+                        if (computerSelection == 3) {return `You tie.`;}
+                        if (computerSelection == 1) {return `You lost.`;}
+                        if (computerSelection == 2) {return `You won.`;}
                 }
             }
 
             let buttons = document.querySelectorAll('button');
             buttons.forEach((button) => {
                 button.addEventListener('click', () => {
+                    let container = document.querySelector('.container');
+                    let result = document.createElement('div');
 
                     // player click and choose an option
-                    let pselection;
-                    if (button.className == '.rock') {
-                        pselection = 1;
-                    } else if (button.className == '.paper') {
-                        pselection = 2;
-                    } else if (button.className == '.scissors') {
-                        pselection = 3;
-                    }
-                    console.log(typeof(pselection), pselection); // this is correct 
-                    console.log(typeof(computerPlay()), computerPlay()); // this is what the computer random
-                    console.log(playRound(pselection, computerPlay())); // this is incorrect (won/lost/tie inlogical so far)
+                    let pselection = Number(button.className);
+                    console.log(pselection);
+
+                    result.textContent = playRound(pselection, computerPlay());
+                    container.appendChild(result);
                 })
             })
-
-            /*
-            function computerPlay() {
-                // 1 = "rock", 2 = "paper", 3 = "scissors"
-                let cselection = Math.floor(Math.random() * 3) + 1;
-                return cselection;
-            }
-            // Play (function takes 2 parameters)
-
-            function playerPlay() {
-                let pselection = prompt(`Which do you choose? 1. rock, 2. paper, and 3. scissors`, ``);
-                return +pselection;
-            }
-
-            function playRound(playerSelection, computerSelection) {
-                if (playerSelection == 3 && computerSelection == 1 || 
-                    playerSelection == 1 && computerSelection == 2 || 
-                    playerSelection == 2 && computerSelection == 3) {
-                    return `lost`;
-                } else if (playerSelection == 2 && computerSelection == 1 || 
-                            playerSelection == 3 && computerSelection == 2 || 
-                            playerSelection == 1 && computerSelection == 3) {
-                    return `won`;
-                } else {
-                    return `tie`;
-                }
-            }
-
-            function game() {
-                let ourMark = ``;
-                let theirMark = ``;
-                let us = 0;
-                let them = 0;
-                let playerSelection = playerPlay();
-                let computerSelection = computerPlay();
-                let res = playRound(playerSelection, computerSelection);
-                if (res == `won`) {
-                    ourMark += `|`;
-                    console.log(`Ours: ${ourMark} Theirs: ${theirMark}`);
-                    us++;
-                } else if (res == `lost`) {
-                    theirMark += `|`;
-                    console.log(`Ours : ${ourMark} Theirs: ${theirMark}`);
-                    them++;
-                } else {
-                    console.log(`Ours: ${ourMark} Theirs: ${theirMark}`);
-                }
-
-                if (us < them) {
-                    console.log(`You lost.`);
-                } else if (us > them) {
-                    console.log(`You won.`);
-                } else {
-                    console.log(`You tie.`);
-                }
-            }
-
-            game();
-            */
         </script>
     </body>
 </html>
