@@ -9,6 +9,10 @@
             <button class='2'>Paper</button>
             <button class='3'>Scissors</button>
         </div>
+        <div class='scores'>
+            <div class='cScore'></div>
+            <div class='mScore'></div>
+        </div>
 
         <script>
 
@@ -16,41 +20,58 @@
             function computerPlay() {
                 // 1 = "rock", 2 = "paper", 3 = "scissors"
                 let cselection = Math.floor(Math.random() * 3) + 1;
-                console.log(cselection);
+                // this line is to check what the computer random
+                console.log(`cselection ${cselection}`);
                 return cselection;
             }
 
+            function playerPlay(className) {
+                let pselection = className;
+                return pselection;
+            }
+
             function playRound(playerSelection, computerSelection) {
+                // check the cases when won/lost/tied
                 switch(playerSelection){
                     case 1:
-                        if (computerSelection == 1) {return `You tie.`;}
+                        if (computerSelection == 1) {return `You tied.`;}
                         if (computerSelection == 2) {return `You lost.`;}
                         if (computerSelection == 3) {return `You won.`;}
                     case 2: 
-                        if (computerSelection == 2) {return `You tie.`;}
+                        if (computerSelection == 2) {return `You tied.`;}
                         if (computerSelection == 3) {return `You lost.`;}
                         if (computerSelection == 1) {return `You won.`;}
                     case 3: 
-                        if (computerSelection == 3) {return `You tie.`;}
+                        if (computerSelection == 3) {return `You tied.`;}
                         if (computerSelection == 1) {return `You lost.`;}
                         if (computerSelection == 2) {return `You won.`;}
                 }
             }
-
+            // all buttons will have the same function, they just give different results
             let buttons = document.querySelectorAll('button');
+            // for each button, when it is clicked...
             buttons.forEach((button) => {
                 button.addEventListener('click', () => {
-                    let container = document.querySelector('.container');
-                    let result = document.createElement('div');
+                    // player selection will be whatever the button's className is converted to number
+                    pselection = playerPlay(Number(button.className));
+                    // computer selection will be what the computer randoms
+                    cselection = computerPlay();
 
-                    // player click and choose an option
-                    let pselection = Number(button.className);
+                    // this is to check what the player selects
                     console.log(pselection);
-
-                    result.textContent = playRound(pselection, computerPlay());
-                    container.appendChild(result);
+                    
+                    // prints the result to the screen (add to HTML)
+                    result.textContent = playRound(pselection, cselection);
                 })
             })
+            let scores = document.querySelector('.scores');
+
+            // point to container of buttons
+            let container = document.querySelector('.container');
+            // create a div underneath the buttons
+            let result = document.createElement('div');
+            // add result to DOM to display
+            container.appendChild(result);
         </script>
     </body>
 </html>
