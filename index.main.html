@@ -7,13 +7,16 @@
     </head>
     <body>
         <div class='container'>
-            <div class=buttons><button class='1'>Rock</button>
-            <button class='2'>Paper</button>
-            <button class='3'>Scissors</button></div>
+            <div class=buttons>
+                <button class='1'>Rock</button>
+                <button class='2'>Paper</button>
+                <button class='3'>Scissors</button>
+            </div>
+            <div class='result'></div>
         </div>
         <div class='scores'>
-            <div class='cScore'></div>
-            <div class='mScore'></div>
+            <div class='cScore' style="background-color: lightblue">a</div>
+            <div class='mScore' style="background-color: lightcoral">a</div>
         </div>
 
         <script>
@@ -49,29 +52,44 @@
                         if (computerSelection == 2) {return `You won.`;}
                 }
             }
+
             // all buttons will have the same function, they just give different results
             let buttons = document.querySelectorAll('button');
             // for each button, when it is clicked...
             buttons.forEach((button) => {
                 button.addEventListener('click', () => {
-                    // player selection will be whatever the button's className is converted to number
-                    pselection = playerPlay(Number(button.className));
-                    // computer selection will be what the computer randoms
-                    cselection = computerPlay();
-
-                    // this is to check what the player selects
-                    console.log(pselection);
+                    let us = 0;
+                    let them = 0;
+                    pselection = playerPlay(Number(button.className)); // player selection will be whatever the button's className is converted to number
                     
-                    // prints the result to the screen (add to HTML)
-                    result.textContent = playRound(pselection, cselection);
+                    cselection = computerPlay(); // computer selection will be what the computer randoms
+                    
+                    console.log(pselection); // this is to check what the player selects
+                    
+                    let roundResult = playRound(pselection, cselection);
+                    if (roundResult == 'You lost.') {
+                        them++;
+                    } else if (roundResult == 'You won.') {
+                        us++;
+                    }
+                    scores(us, them);
+                    result.textContent = roundResult; // prints the result to the screen (add to HTML)
                 })
             })
-            let scores = document.querySelector('.scores');
+
+            function scores(us, them) {
+                if (them > us) {
+                    let cScore = document.querySelector('.cScore');
+                     cScore.textContent = `${them}`;
+                } else {
+                    let mScore = document.querySelector('.mScore');
+                    mScore.textContent = `${us}`;
+                }
+            }
+            
 
             // point to container of buttons
-            let container = document.querySelector('.container');
-            // create a div underneath the buttons
-            let result = document.createElement('div');
+            let result = document.querySelector('.result');
             // add result to DOM to display
             container.appendChild(result);
         </script>
