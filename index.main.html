@@ -12,93 +12,20 @@
                 <button class='2'>Paper</button>
                 <button class='3'>Scissors</button>
             </div>
-            <div class='result'></div>
         </div>
         <div class='scores'>
-            <div class='cScore' style="background-color: lightblue">a</div>
-            <div class='mScore' style="background-color: lightcoral">a</div>
+            <div class='cScore' style="background-color: lightblue">
+                <h3 class="them">Computer's Score</h3>
+                <p class="cDisplay">0</p>
+            </div>
+            <div class='mScore' style="background-color: lightcoral">
+                <h3 class="us">Your Score</h3>
+                <p class="mDisplay">0</p>
+            </div>
         </div>
 
-        <script>
-            // point to container of buttons
-            let container = document.querySelector('.container');
-            let result = container.querySelector('.result');
-            // add result to DOM to display
-            container.appendChild(result);
+        <h1 class='result'></h1>
 
-            // computer random a number, which corresponds to rock/paper/scissors
-            function computerPlay() {
-                // 1 = "rock", 2 = "paper", 3 = "scissors"
-                let cselection = Math.floor(Math.random() * 3) + 1;
-                // this line is to check what the computer random
-                console.log(`cselection ${cselection}`);
-                return cselection;
-            }
-
-            function playerPlay(className) {
-                let pselection = className;
-                return pselection;
-            }
-
-            function playRound(playerSelection, computerSelection) {
-                let tie = `You tied.`;
-                let lost = `You lost.`;
-                let won = `You won.`;
-                // check the cases when won/lost/tied
-                switch(playerSelection){
-                    case 1:
-                        if (computerSelection == 1) {return tie;}
-                        if (computerSelection == 2) {return lost;}
-                        if (computerSelection == 3) {return won;}
-                    case 2: 
-                        if (computerSelection == 2) {return tie;}
-                        if (computerSelection == 3) {return lost;}
-                        if (computerSelection == 1) {return won;}
-                    case 3: 
-                        if (computerSelection == 3) {return tie;}
-                        if (computerSelection == 1) {return lost;}
-                        if (computerSelection == 2) {return won;}
-                }
-            }
-            let us = 0;
-            let them = 0;
-            let scores = document.querySelector('.scores');
-            let cScore = scores.querySelector('.cScore');
-            let mScore = scores.querySelector('.mScore');
-
-            function afterClick(className) {
-                let pselection = playerPlay(Number(className));
-                let cselection = computerPlay();
-
-                console.log(pselection);
-
-                let roundResult = playRound(pselection, cselection);
-                if (roundResult == `You lost.`) {
-                    them++;
-                    cScore.textContent = `them ${them}`;
-                } else if (roundResult == `You won.`) {
-                    us++;
-                    mScore.textContent = `us ${us}`;
-                }
-
-                result.textContent = roundResult;
-
-                if (us == 5) {
-                    alert('We win!');
-                } else if (them == 5) {
-                    alert('We lost :(');
-                }
-            }
-
-            // all buttons will have the same function, they just give different results
-            let buttons = document.querySelectorAll('button');
-            // for each button, when it is clicked...
-            buttons.forEach((button) => {
-                button.addEventListener('click', function () {
-                    afterClick(button.className)
-                })
-            })
-
-        </script>
+        <script src="script.js"></script>
     </body>
 </html>
