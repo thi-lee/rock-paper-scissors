@@ -20,6 +20,11 @@
         </div>
 
         <script>
+            // point to container of buttons
+            let container = document.querySelector('.container');
+            let result = container.querySelector('.result');
+            // add result to DOM to display
+            container.appendChild(result);
 
             // computer random a number, which corresponds to rock/paper/scissors
             function computerPlay() {
@@ -36,20 +41,52 @@
             }
 
             function playRound(playerSelection, computerSelection) {
+                let tie = `You tied.`;
+                let lost = `You lost.`;
+                let won = `You won.`;
                 // check the cases when won/lost/tied
                 switch(playerSelection){
                     case 1:
-                        if (computerSelection == 1) {return `You tied.`;}
-                        if (computerSelection == 2) {return `You lost.`;}
-                        if (computerSelection == 3) {return `You won.`;}
+                        if (computerSelection == 1) {return tie;}
+                        if (computerSelection == 2) {return lost;}
+                        if (computerSelection == 3) {return won;}
                     case 2: 
-                        if (computerSelection == 2) {return `You tied.`;}
-                        if (computerSelection == 3) {return `You lost.`;}
-                        if (computerSelection == 1) {return `You won.`;}
+                        if (computerSelection == 2) {return tie;}
+                        if (computerSelection == 3) {return lost;}
+                        if (computerSelection == 1) {return won;}
                     case 3: 
-                        if (computerSelection == 3) {return `You tied.`;}
-                        if (computerSelection == 1) {return `You lost.`;}
-                        if (computerSelection == 2) {return `You won.`;}
+                        if (computerSelection == 3) {return tie;}
+                        if (computerSelection == 1) {return lost;}
+                        if (computerSelection == 2) {return won;}
+                }
+            }
+            let us = 0;
+            let them = 0;
+            let scores = document.querySelector('.scores');
+            let cScore = scores.querySelector('.cScore');
+            let mScore = scores.querySelector('.mScore');
+
+            function afterClick(className) {
+                let pselection = playerPlay(Number(className));
+                let cselection = computerPlay();
+
+                console.log(pselection);
+
+                let roundResult = playRound(pselection, cselection);
+                if (roundResult == `You lost.`) {
+                    them++;
+                    cScore.textContent = `them ${them}`;
+                } else if (roundResult == `You won.`) {
+                    us++;
+                    mScore.textContent = `us ${us}`;
+                }
+
+                result.textContent = roundResult;
+
+                if (us == 5) {
+                    alert('We win!');
+                } else if (them == 5) {
+                    alert('We lost :(');
                 }
             }
 
@@ -57,41 +94,11 @@
             let buttons = document.querySelectorAll('button');
             // for each button, when it is clicked...
             buttons.forEach((button) => {
-                button.addEventListener('click', () => {
-                    let us = 0;
-                    let them = 0;
-                    pselection = playerPlay(Number(button.className)); // player selection will be whatever the button's className is converted to number
-                    
-                    cselection = computerPlay(); // computer selection will be what the computer randoms
-                    
-                    console.log(pselection); // this is to check what the player selects
-                    
-                    let roundResult = playRound(pselection, cselection);
-                    if (roundResult == 'You lost.') {
-                        them++;
-                    } else if (roundResult == 'You won.') {
-                        us++;
-                    }
-                    scores(us, them);
-                    result.textContent = roundResult; // prints the result to the screen (add to HTML)
+                button.addEventListener('click', function () {
+                    afterClick(button.className)
                 })
             })
 
-            function scores(us, them) {
-                if (them > us) {
-                    let cScore = document.querySelector('.cScore');
-                     cScore.textContent = `${them}`;
-                } else {
-                    let mScore = document.querySelector('.mScore');
-                    mScore.textContent = `${us}`;
-                }
-            }
-            
-
-            // point to container of buttons
-            let result = document.querySelector('.result');
-            // add result to DOM to display
-            container.appendChild(result);
         </script>
     </body>
 </html>
